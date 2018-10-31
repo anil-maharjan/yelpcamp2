@@ -1,0 +1,35 @@
+<% include ../partials/header %>
+<a class="btn btn-primary" href="/sites"> Go Back </a>
+
+<div>
+	<h1> <%= site.title %> </h1>
+	<img src="<%= site.image %>">
+	<p> <%= site.description %> </p>
+	<div>
+		<a href="/sites/<%= site._id %>/edit" class="btn btn-warning"> Edit </a>
+		<form action="/sites/<%= site._id %>?_method=DELETE" method="POST" id="delete-form">
+			<button class="btn btn-danger"> Delete </button>
+		</form>
+	</div>
+
+	<div style="margin-top: 25px;">
+		<a href="/sites/<%= site._id %>/comments" class="btn btn-primary"> Add a new comment </a>
+	</div>
+
+	<div style="margin-top: 25px;">
+		<h4> Comments </h4>
+		<hr>
+			<% site.comments.forEach(function(comment){  %>
+				<div style="margin-bottom: 12px;">
+					<h5><%= comment.author %></h5>
+					<p><%= comment.comment %> </p>
+					<a class="btn btn-sm btn-warning" href="/sites/<%= site._id %>/comments/<%= comment._id %>/edit"> Edit </a>
+					<form id="delete-comment" action="/sites/<%= site._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+						<button class="btn btn-sm btn-danger" > Delete </button>
+					</form>
+				</div>
+			<% }) %>
+	</div>
+</div>
+
+<% include ../partials/footer %>

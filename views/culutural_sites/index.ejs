@@ -1,0 +1,31 @@
+<% include ../partials/header %>
+	<div class="jumbotron jumbotron-fluid">
+		<div class="container">
+			<h1 class="display-4"> Welcome to Yelp Culture </h1>
+			<p class="lead"> 
+				A list of Cultural heritage sites of nepal. Explore these religious places and dive deep into ancient history.
+			</p>
+			<hr class="my-4">
+			<a href="/" class="btn btn-primary"> Go Back </a>
+			<a href="/sites/new" class="btn btn-primary" id="new-site"> Add a new Site </a>	
+		</div>
+	</div>
+
+	<div>
+			<div class="row text-center">
+				<% Sites.forEach(function(site){ %>
+					<div class="col-md-3 col-sm-6" id="sites">
+						<img class="img-fluid img-thumbnail" src="<%= site.image %>">
+						<div class="">
+							<p class="h5"> <%= site.title %> </p>
+							<div id="overflow">
+								<p class="lead"> <%= site.description %> </p> 
+							</div>
+							<a href="/sites/<%= site._id %>" class="btn btn-primary"> More Info </a>
+						</div>
+					</div>	
+				<% }) %>
+			</div>
+	</div>
+
+<% include ../partials/footer %>

@@ -1,0 +1,21 @@
+<% include ../partials/header %>
+
+<h1> Edit <%= site.name %> </h1>
+
+<form action="/sites/<%= site._id %>?_method=PUT" method="POST">
+	<div>
+		Title:
+		<input type="text" name="site[title]" value="<%= site.title %>">
+	</div>
+	<div>
+		Image:
+		<input type="text" name="site[image]" value="<%= site.image %>">
+	</div>
+	<div>
+		Description:
+		<input type="text" name="site[description]" value="<%= site.description %>">
+	</div>
+	<input type="submit">
+</form>
+
+<% include ../partials/footer %>

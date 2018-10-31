@@ -1,0 +1,24 @@
+/*.container{background: green};*/
+
+#new-site{
+	float: right;
+}
+
+#delete-form{
+	display: inline;
+}
+
+#overflow{
+	white-space: nowrap; 
+    width: inherit; 
+    text-overflow: ellipsis; 
+    overflow: hidden;
+}
+
+#sites{
+	 margin-bottom: 20px;
+}
+
+#delete-comment{
+	display: inline;
+}
