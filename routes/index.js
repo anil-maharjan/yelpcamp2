@@ -30,7 +30,7 @@ router.post("/signup", function(req, res){
 
 // login route
 router.get("/login", function(req, res){
-	res.render("user/login");
+	res.render("login");
 })
 
 // handle login logic

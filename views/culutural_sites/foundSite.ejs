@@ -5,12 +5,14 @@
 	<h1> <%= site.title %> </h1>
 	<img src="<%= site.image %>">
 	<p> <%= site.description %> </p>
+	<% if(currentUser && site.author.id.equals(currentUser._id)){ %>
 	<div>
 		<a href="/sites/<%= site._id %>/edit" class="btn btn-warning"> Edit </a>
 		<form action="/sites/<%= site._id %>?_method=DELETE" method="POST" id="delete-form">
 			<button class="btn btn-danger"> Delete </button>
 		</form>
 	</div>
+	<% } %>	
 
 	<div style="margin-top: 25px;">
 		<a href="/sites/<%= site._id %>/comments" class="btn btn-primary"> Add a new comment </a>

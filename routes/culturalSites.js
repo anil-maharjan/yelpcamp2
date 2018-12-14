@@ -1,6 +1,7 @@
 var express = require("express"),
 	router	= express.Router(),
-	CulturalSites = require("../models/culturalsites");
+	CulturalSites = require("../models/culturalsites"),
+	middleware = require("../middleware");
 
 // CULTURAL SITES ROUTE 
 router.get("/", function(req, res){
@@ -14,13 +15,21 @@ router.get("/", function(req, res){
 })
 
 // NEW SITE ROUTE
-router.get("/new", function(req, res){
+router.get("/new",middleware.isLoggedIn, function(req, res){
 	res.render("culutural_sites/newSites");
 })
 
 // ADD A NEW SITE ROUTE
 router.post("/", function(req, res){
-	CulturalSites.create(req.body.site, function(err, newSite){
+	var name = req.body.title,
+		image = req.body.image,
+		des	 = req.body.description,
+		author = {
+			id: req.user._id,
+			username: req.user.username
+		},
+		newSite = {title: name, image: image, description: des, author: author};
+	CulturalSites.create(newSite, function(err, newSite){
 		if(err){
 			console.log(err);
 		} else {
@@ -41,7 +50,7 @@ router.get("/:id", function(req, res){
 })
 
 // EDIT ROUTE
-router.get("/:id/edit", function(req, res){
+router.get("/:id/edit", middleware.checkSitesOwnership, function(req, res){
 CulturalSites.findById(req.params.id, function(err, foundSite){
 	if(err){
 		console.log(err);
@@ -52,7 +61,7 @@ CulturalSites.findById(req.params.id, function(err, foundSite){
 })
 
 // UPDATE CULTURAL SITES ROUTE
-router.put("/:id", function(req, res){
+router.put("/:id", middleware.checkSitesOwnership, function(req, res){
 	CulturalSites.findOneAndUpdate({_id: req.params.id}, req.body.site, function(err, updatedSite){
 		if(err){
 			console.log(err);
@@ -63,7 +72,7 @@ router.put("/:id", function(req, res){
 })
 
 // DELETE CULTURAL SITES
-router.delete("/:id", function(req, res){
+router.delete("/:id", middleware.checkSitesOwnership, function(req, res){
 	CulturalSites.findOneAndDelete({_id: req.params.id}, function(err){
 		if(err){
 			res.redirect("/sites");

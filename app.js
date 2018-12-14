@@ -9,7 +9,8 @@ var express 		= require("express"),
 	LocalStrategy	= require("passport-local"),
 	CulturalSites 	= require("./models/culturalsites"),
 	User 			= require("./models/user"),
-	Comment 		= require("./models/comment");
+	Comment 		= require("./models/comment"),
+	Schema			= mongoose.Schema;
 
 // REQUIRING ROUTES
 var indexRoutes 		= require("./routes/index"),

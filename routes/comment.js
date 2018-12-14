@@ -1,10 +1,11 @@
 var express = require("express"),
 	router	= express.Router({mergeParams: true}),
 	CulturalSites = require("../models/culturalsites"),
-	Comment = require("../models/comment");
+	Comment = require("../models/comment"),
+	middleware = require("../middleware");
 
 // COMMENT ROUTE
-router.get("/", function(req, res){
+router.get("/",middleware.isLoggedIn, function(req, res){
 	CulturalSites.findById(req.params.id, function(err, foundSite){
 		if(err){
 			console.log(err);
